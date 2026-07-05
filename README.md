@@ -19,7 +19,12 @@ Primero tenemos que permitir una conexión SSH sin contraseña para que se reali
 ## Paso 2: Script
 1. Creamos el script, recomendado en la ubicación `/usr/local/bin`
  Puedes descargarlo o copiar y pegar el contenido en un archivo
-2. Asignale permisos de ejecución al script `chmod +x /usr/local/bin/[nombrescript].sh`
+`wget https://raw.githubusercontent.com/cl0v3r404/NFS-Mount-Script-Proxmox/refs/heads/main/mount-nfs.sh`
+o
+`curl -O https://raw.githubusercontent.com/cl0v3r404/NFS-Mount-Script-Proxmox/refs/heads/main/mount-nfs.sh`
+
+3. Asignale permisos de ejecución al script
+`chmod +x /usr/local/bin/[nombrescript].sh`
 
 ## Paso 3: Disparador automatico
 Para hacer que sea posible la ejecución del script cuando el servicio NFS esté listo y la red lista, creamos un servicio de SystemD en la ruta `/etc/systemd/system/`
