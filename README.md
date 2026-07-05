@@ -7,11 +7,11 @@ Este script realiza montaje de recursos NFS en el host Proxmox, esto es ideal cu
 ## Paso 1: Establecer confianza con el host
 Primero tenemos que permitir una conexión SSH sin contraseña para que se realicen las operaciones del script sin que nos solicite la contraseña. 
 1. En la consola de Linux (el servidor de archivos) generamos una clave para el usuario root (o el usuario que se utilice)
-   ```sh
+   ```
     ssh-keygen -t rsa -b 4096
     ```
 2. Enviamos la clave al destino, en este caso Proxmox
-    ```sh
+    ```
     ssh-copy-id root@[ip-de-proxmox]
     ```
     Si pide la clave de Proxmox, introducela, a partir de esto ya no será necesario.
@@ -30,13 +30,15 @@ curl -O https://raw.githubusercontent.com/cl0v3r404/NFS-Mount-Script-Proxmox/ref
 ```
 
 3. Asignale permisos de ejecución al script
-`chmod +x /usr/local/bin/[nombrescript].sh`
+```
+chmod +x /usr/local/bin/mount-nfs.sh
+```
 
 ## Paso 3: Disparador automatico
 Para hacer que sea posible la ejecución del script cuando el servicio NFS esté listo y la red lista, creamos un servicio de SystemD en la ruta `/etc/systemd/system/`
 
 1. Pega la siguiente configuración
-```service
+```
 [Unit]
 Description=Notifica a Proxmox para montar NFS e iniciar LXCs
 After=nfs-server.service
@@ -52,7 +54,7 @@ WantedBy=multi-user.target
 ```
 
 3. Activamos el servicio
-```sh
+```
 systemctl daemon-reload
 systemctl enable mount-proxmox.service
 ``` 
